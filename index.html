@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+  <title>Convite Debutante Gabrielli</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* ═══ RESET ═══ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; }
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      background: #000;
+      color: #f5f0e8;
+    }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ═══ CONTAINER ═══ */
+    #app { position: fixed; inset: 0; width: 100%; height: 100%; overflow: hidden; background: #000; }
+
+    /* ═══ PHASE 1: VIDEO / ENVELOPE ═══ */
+    .phase-video { position: absolute; inset: 0; }
+    .phase-video video {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+
+    /* Seal button */
+    #seal-btn {
+      position: absolute;
+      left: 50%; top: 53%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #seal-btn .pulse-ring {
+      width: 64px; height: 64px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      animation: sealPulse 2s ease-in-out infinite;
+    }
+    #seal-btn .pulse-ring-inner {
+      width: 56px; height: 56px; border-radius: 50%;
+      border: 2px solid rgba(212, 160, 23, 0.5);
+    }
+    #seal-btn .hint-text {
+      position: absolute; top: 70px;
+      color: rgba(255, 220, 120, 0.9);
+      font-size: 12px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      font-weight: 300;
+      white-space: nowrap;
+      animation: sealPulse 2s ease-in-out infinite;
+    }
+    @keyframes sealPulse {
+      0%, 100% { opacity: 0.4; transform: scale(0.97); }
+      50% { opacity: 1; transform: scale(1.03); }
+    }
+
+    /* ═══ PHASE: TRANSITION ═══ */
+    .phase-transition { position: absolute; inset: 0; z-index: 20; pointer-events: none; }
+    .transition-mist {
+      position: absolute; inset: 0;
+      opacity: 0.85;
+      background: radial-gradient(ellipse at 50% 40%, rgba(212,160,23,0.7) 0%, rgba(212,160,23,0.4) 30%, rgba(180,140,40,0.2) 60%, transparent 85%);
+    }
+    .transition-particle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,220,120,0.75) 0%, transparent 70%);
+      animation: goldStarFloat 2.5s ease-in-out infinite;
+    }
+
+    /* ═══ PHASE: CONVITE ═══ */
+    .phase-convite { position: absolute; inset: 0; z-index: 10; }
+    .convite-image-wrapper {
+      position: absolute; inset: 0; overflow: hidden;
+    }
+    .convite-image-wrapper img {
+      width: 100%; height: 100%; object-fit: contain;
+      background: #0a0e1a;
+      animation: kenBurns 8s ease-in-out infinite alternate;
+    }
+    .convite-brightness { filter: brightness(0.5); animation: brightnessIn 2s ease-out forwards; }
+    .convite-brightness-active { filter: brightness(1); }
+
+    @keyframes brightnessIn { from { filter: brightness(0.5); } to { filter: brightness(1); } }
+    @keyframes kenBurns { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
+
+    /* "Uma noite para brilhar" */
+    .tagline {
+      position: absolute;
+      bottom: 22%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      color: rgba(255, 220, 140, 0.8);
+      font-size: 12px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      font-style: italic;
+      font-weight: 300;
+      white-space: nowrap;
+      text-shadow: 0 0 10px rgba(212,160,23,0.5), 0 0 20px rgba(212,160,23,0.3);
+      animation: fadeIn 1.5s ease-out 0.5s both;
+    }
+
+    /* Particles rising */
+    .sparkle {
+      position: absolute;
+      bottom: 0;
+      width: 4px; height: 4px;
+      background: radial-gradient(circle, #d4a017 0%, transparent 70%);
+      border-radius: 50%;
+      animation: sparkleRise linear infinite;
+    }
+
+    /* Gold stars */
+    .gold-star {
+      position: absolute;
+      font-size: 10px;
+      color: #d4a017;
+      animation: goldStarFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes sparkleRise {
+      0% { transform: translateY(100vh) translateX(0) scale(0); opacity: 0; }
+      10% { opacity: 1; transform: translateY(90vh) translateX(2px) scale(1); }
+      50% { opacity: 0.8; }
+      90% { opacity: 0.3; }
+      100% { transform: translateY(-10vh) translateX(-5px) scale(0.5); opacity: 0; }
+    }
+
+    @keyframes goldStarFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.4; }
+      25% { transform: translateY(-8px) rotate(90deg); opacity: 1; }
+      50% { transform: translateY(-4px) rotate(180deg); opacity: 0.6; }
+      75% { transform: translateY(-12px) rotate(270deg); opacity: 1; }
+    }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    /* Action buttons */
+    .action-buttons {
+      position: absolute;
+      bottom: 12%;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      z-index: 10;
+      animation: fadeIn 1s ease-out 1s both;
+    }
+    .action-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      transition: transform 0.16s ease-out;
+    }
+    .action-btn:active { transform: scale(0.95); }
+    .action-btn .icon-circle {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid rgba(212, 160, 23, 0.6);
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(139, 90, 0, 0.4);
+      backdrop-filter: blur(4px);
+    }
+    .action-btn .icon-circle svg { width: 16px; height: 16px; color: rgba(255, 200, 80, 1); }
+    .action-btn .btn-label {
+      color: rgba(255, 220, 140, 0.9);
+      font-size: 8px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ═══ PHASE: PRESENTES ═══ */
+    .phase-presentes {
+      position: absolute; inset: 0;
+      overflow-y: auto;
+      background: #0a0e1a;
+    }
+    .presentes-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse at 20% 30%, rgba(26, 32, 72, 0.9) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(42, 48, 90, 0.7) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(20, 25, 60, 0.8) 0%, transparent 60%),
+        linear-gradient(180deg, #1a1e48 0%, #0d1033 50%, #0a0e2a 100%);
+    }
+    .presentes-close {
+      position: absolute; top: 16px; right: 16px; z-index: 30;
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(139, 90, 0, 0.8);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(212, 160, 23, 0.5);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255, 220, 140, 1);
+      font-size: 20px;
+      transition: all 0.16s ease-out;
+    }
+    .presentes-close:active { transform: scale(0.95); background: rgba(180, 120, 0, 0.9); }
+    .presentes-content {
+      position: relative; z-index: 10;
+      display: flex; flex-direction: column;
+      padding: 48px 24px 32px;
+      min-height: 100%;
+    }
+    .presentes-header { text-align: center; margin-bottom: 32px; }
+    .presentes-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      color: rgba(255, 220, 140, 1);
+      font-style: italic;
+    }
+    .presentes-header .divider {
+      margin-top: 8px; height: 1px;
+      background: linear-gradient(to right, transparent, rgba(212,160,23,0.6), transparent);
+    }
+    .presentes-header p {
+      margin-top: 8px;
+      color: rgba(255, 200, 80, 0.7);
+      font-size: 14px;
+    }
+    .presentes-categories { flex: 1; max-width: 448px; margin: 0 auto; width: 100%; }
+    .gift-category {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(212, 160, 23, 0.3);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+    .gift-category h3 {
+      color: rgba(255, 200, 80, 1);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(212, 160, 23, 0.2);
+      padding-bottom: 8px;
+    }
+    .gift-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      text-align: left;
+      color: rgba(245, 240, 232, 0.9);
+      font-size: 14px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      transition: all 0.16s ease-out;
+    }
+    .gift-item:hover, .gift-item:active {
+      color: rgba(255, 220, 140, 1);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .gift-item:active { transform: scale(0.98); }
+    .gift-item .star { color: rgba(255, 200, 80, 1); }
+    .gift-item .item-name { flex: 1; }
+    .gift-item .external-icon svg { width: 14px; height: 14px; color: rgba(180, 140, 20, 1); flex-shrink: 0; }
+
+    .pix-section { margin-top: 24px; text-align: center; }
+    .pix-box {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(212, 160, 23, 0.3);
+      border-radius: 12px;
+      padding: 16px 24px;
+    }
+    .pix-box .pix-label { color: rgba(255, 200, 80, 0.7); font-size: 12px; margin-bottom: 4px; }
+    .pix-box .pix-key { color: rgba(245, 240, 232, 1); font-family: monospace; font-size: 18px; }
+    .pix-copy-btn {
+      margin-top: 12px;
+      padding: 8px 20px;
+      background: rgba(139, 90, 0, 0.6);
+      border: 1px solid rgba(212, 160, 23, 0.5);
+      border-radius: 9999px;
+      color: rgba(255, 220, 140, 1);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: all 0.16s ease-out;
+    }
+    .pix-copy-btn:active { transform: scale(0.95); background: rgba(180, 120, 0, 0.7); }
+    .pix-toast {
+      position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
+      background: rgba(212, 160, 23, 0.9);
+      color: #0a0e1a;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      z-index: 999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .pix-toast.show { opacity: 1; }
+
+    /* Scrollbar */
+    .phase-presentes::-webkit-scrollbar { width: 4px; }
+    .phase-presentes::-webkit-scrollbar-track { background: #0a1628; }
+    .phase-presentes::-webkit-scrollbar-thumb { background: #d4a017; border-radius: 2px; }
+
+    /* ═══ HIDDEN ═══ */
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <!-- ═══ AUDIO ═══ -->
+  <audio id="audio-magic" src="media/magic-sound.mp3" preload="auto"></audio>
+  <audio id="audio-music" src="media/dandelions.mp3" loop preload="auto"></audio>
+  <audio id="audio-nature" src="media/wind-nature.mp3" loop preload="auto"></audio>
+
+  <div id="app">
+    <!-- ═══ PHASE: VIDEO / ENVELOPE ═══ -->
+    <div id="phase-video" class="phase-video">
+      <video id="envelope-video" src="media/envelope.mp4" playsinline muted preload="auto"></video>
+      <button id="seal-btn" aria-label="Abrir convite">
+        <div class="pulse-ring"><div class="pulse-ring-inner"></div></div>
+        <span class="hint-text">Toque no selo para abrir</span>
+      </button>
+    </div>
+
+    <!-- ═══ PHASE: TRANSITION ═══ -->
+    <div id="phase-transition" class="phase-transition hidden">
+      <div class="transition-mist" id="transition-mist"></div>
+      <div id="transition-particles"></div>
+    </div>
+
+    <!-- ═══ PHASE: CONVITE ═══ -->
+    <div id="phase-convite" class="phase-convite hidden">
+      <div class="convite-image-wrapper">
+        <img id="convite-img" src="media/convite.png" alt="Convite Gabrielli 15 anos" class="convite-brightness">
+      </div>
+      <p class="tagline hidden" id="tagline">Uma noite para brilhar</p>
+      <div id="sparkles-container"></div>
+      <div id="stars-container"></div>
+      <div class="action-buttons hidden" id="action-buttons">
+        <button class="action-btn" id="btn-confirmar" aria-label="Confirmar Presença">
+          <div class="icon-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <span class="btn-label">Confirmar</span>
+        </button>
+        <button class="action-btn" id="btn-local" aria-label="Local da Festa">
+          <div class="icon-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <span class="btn-label">Local</span>
+        </button>
+        <button class="action-btn" id="btn-presentes" aria-label="Sugestão de Presente">
+          <div class="icon-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+          </div>
+          <span class="btn-label">Presentes</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══ PHASE: PRESENTES ═══ -->
+    <div id="phase-presentes" class="phase-presentes hidden">
+      <div class="presentes-bg"></div>
+      <button class="presentes-close" id="btn-close-presentes" aria-label="Voltar">✕</button>
+      <div class="presentes-content" id="presentes-content">
+        <!-- Filled by JS -->
+      </div>
+      <div class="pix-toast" id="pix-toast">Chave PIX copiada!</div>
+    </div>
+  </div>
+
+  <script>
+    // ════════════════════════════════════════════
+    // DADOS DOS PRESENTES
+    // ════════════════════════════════════════════
+    const giftCategories = [
+      {
+        title: "Tênis",
+        items: [
+          { name: "Nike Gamma Force Feminino (36)", url: "https://www.nike.com.br/tenis-nike-gamma-force-feminino-025675.html?cor=59" },
+          { name: "Nike Court Vision Low White Feminino (36)", url: "https://droper.app/d/46213/nike_court_vision_low_white_feminino" },
+          { name: "Puma Carina BDP Feminino (36)", url: "https://www.centauro.com.br/tenis-puma-carina-bdp-feminino-preto-m0q0on-mktp.html?cor=02" }
+        ]
+      },
+      {
+        title: "Calçados",
+        items: [
+          { name: "Chinelo Nuvem Liso Preto", url: "https://www.anacapri.com.br/chinelo-nuvem-liso-preto/p/3077600010001U" }
+        ]
+      },
+      {
+        title: "Roupas",
+        items: [
+          { name: "Jaqueta São Paulo Esportiva Feminina Branca (P)", url: "https://shopee.com.br/product/1337527569/28945164413" }
+        ]
+      },
+      {
+        title: "Capilar",
+        items: [
+          { name: "Combo Noite Estrelada: Shampoo + Condicionador + Esfoliante + Kit + Colônia", url: "https://usethabeauty.com.br/produtos/combo-noite-estrelada-shampoo-condicionador-esfoliante-kit-noite-estrelada-colonia-noite-estrelada-jift2/" }
+        ]
+      },
+      {
+        title: "Perfumaria",
+        items: [
+          { name: "Perfume Coffee Addictive 100ml - O Boticário", url: "https://www.mercadolivre.com.br/perfume-coffee-addictive-oriental-frutal-o-boticario-desodorante-colonia-100ml/up/MLBU4034282017" },
+          { name: "Floratta Red Passion Eau De Parfum 75ml", url: "https://www.boticario.com.br/floratta-red-passion-eau-de-parfum-75ml-v2/" },
+          { name: "Kit Presente Especial Her Code (2 itens)", url: "https://www.boticario.com.br/kit-presente-especial-her-code-2-itens/" }
+        ]
+      },
+      {
+        title: "Body Splash",
+        items: [
+          { name: "Dream Viagem Encantada 200ml - O Boticário", url: "https://www.boticario.com.br/body-splash-desodorante-colonia-dream-viagem-encantada-200ml/" },
+          { name: "Obsessed 200ml - WePink", url: "https://www.wepink.com.br/body-splash-obsessed/p" },
+          { name: "Vanilla Wish 200ml - WePink", url: "https://www.wepink.com.br/body-splash-vanilla-wish-200-ml-wepink/p" }
+        ]
+      },
+      {
+        title: "Outros",
+        items: [
+          { name: "Smartwatch Feminino (Xiaomi/Redmi/iPhone/Galaxy)", url: "https://share.google/KuEOdQAH4BiTcE4Eb" },
+          { name: "Luminária G Speaker Smart Station", url: "https://produto.mercadolivre.com.br/MLB-3304120579-g-speaker-smart-station-luminaria-caixa-de-som-e-carregador-_JM" }
+        ]
+      }
+    ];
+
+    // ════════════════════════════════════════════
+    // ELEMENTOS DOM
+    // ════════════════════════════════════════════
+    const audioMagic = document.getElementById('audio-magic');
+    const audioMusic = document.getElementById('audio-music');
+    const audioNature = document.getElementById('audio-nature');
+
+    const phaseVideo = document.getElementById('phase-video');
+    const phaseTransition = document.getElementById('phase-transition');
+    const phaseConvite = document.getElementById('phase-convite');
+    const phasePresentes = document.getElementById('phase-presentes');
+
+    const sealBtn = document.getElementById('seal-btn');
+    const envelopeVideo = document.getElementById('envelope-video');
+    const transitionMist = document.getElementById('transition-mist');
+    const transitionParticles = document.getElementById('transition-particles');
+    const conviteImg = document.getElementById('convite-img');
+    const tagline = document.getElementById('tagline');
+    const actionButtons = document.getElementById('action-buttons');
+    const sparklesContainer = document.getElementById('sparkles-container');
+    const starsContainer = document.getElementById('stars-container');
+
+    const btnConfirmar = document.getElementById('btn-confirmar');
+    const btnLocal = document.getElementById('btn-local');
+    const btnPresentes = document.getElementById('btn-presentes');
+    const btnClosePresentes = document.getElementById('btn-close-presentes');
+    const presentesContent = document.getElementById('presentes-content');
+    const pixToast = document.getElementById('pix-toast');
+
+    let sealTouched = false;
+    let transitionStarted = false;
+
+    // ════════════════════════════════════════════
+    // TOCAR NO SELO
+    // ════════════════════════════════════════════
+    sealBtn.addEventListener('click', function() {
+      if (sealTouched) return;
+      sealTouched = true;
+
+      // Esconder botão de toque
+      sealBtn.style.opacity = '0';
+      sealBtn.style.transition = 'opacity 0.3s ease';
+      setTimeout(() => { sealBtn.style.display = 'none'; }, 300);
+
+      // Tocar som de magia
+      audioMagic.volume = 0.6;
+      audioMagic.currentTime = 0;
+      audioMagic.play().catch(function() {});
+
+      // Tocar música imediatamente
+      audioMusic.volume = 0.4;
+      audioMusic.currentTime = 0;
+      audioMusic.play().catch(function() {
+        setTimeout(function() { audioMusic.play().catch(function() {}); }, 500);
+      });
+
+      // Play vídeo
+      envelopeVideo.play();
+
+      // Quando o vídeo terminar → transição
+      envelopeVideo.addEventListener('ended', function() {
+        if (transitionStarted) return;
+        transitionStarted = true;
+        startTransition();
+      });
+    });
+
+    // ════════════════════════════════════════════
+    // TRANSIÇÃO (NÉVOA + PARTÍCULAS)
+    // ════════════════════════════════════════════
+    function startTransition() {
+      // Som de natureza
+      audioNature.volume = 0.2;
+      audioNature.play().catch(function() {});
+
+      // Esconder botão
+      sealBtn.style.display = 'none';
+
+      // Mostrar transição
+      phaseTransition.classList.remove('hidden');
+
+      // Criar partículas da transição
+      for (var i = 0; i < 40; i++) {
+        var particle = document.createElement('div');
+        particle.className = 'transition-particle';
+        particle.style.left = (2 + (i % 8) * 12) + '%';
+        particle.style.top = (5 + (i % 6) * 16) + '%';
+        particle.style.width = (2 + (i % 5)) + 'px';
+        particle.style.height = (2 + (i % 5)) + 'px';
+        particle.style.animationDuration = (2 + (i % 3)) + 's';
+        particle.style.animationDelay = (i * 0.12) + 's';
+        transitionParticles.appendChild(particle);
+      }
+
+      // Animação de 4 segundos com ease in-out (curva cosseno)
+      var startTime = Date.now();
+      var duration = 4000;
+
+      function animate() {
+        var elapsed = Date.now() - startTime;
+        var rawProgress = Math.min(elapsed / duration, 1);
+        var progress = 0.5 - 0.5 * Math.cos(Math.PI * rawProgress);
+
+        // Vídeo desvanece e desfoque
+        phaseVideo.style.opacity = 1 - progress;
+        phaseVideo.style.filter = 'blur(' + (progress * 8) + 'px)';
+        phaseVideo.style.transform = 'scale(' + (1 + progress * 0.1) + ')';
+
+        // Névoa dissipa
+        transitionMist.style.opacity = 0.85 - progress * 0.85;
+
+        // Convite aparece por baixo (começa escuro, vai clareando)
+        conviteImg.style.filter = 'brightness(' + (0.5 + progress * 0.5) + ')';
+        conviteImg.classList.remove('convite-brightness');
+
+        if (rawProgress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          // Transição completa → mostrar convite
+          phaseTransition.classList.add('hidden');
+          phaseVideo.classList.add('hidden');
+          phaseConvite.classList.remove('hidden');
+
+          // Ativar brilho normal
+          conviteImg.classList.add('convite-brightness-active');
+
+          // Mostrar elementos do convite com delay
+          setTimeout(function() { tagline.classList.remove('hidden'); }, 300);
+          setTimeout(function() { actionButtons.classList.remove('hidden'); }, 500);
+
+          // Criar partículas de brilho
+          createSparkles();
+          createGoldStars();
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    // ════════════════════════════════════════════
+    // PARTÍCULAS E ESTRELAS DO CONVITE
+    // ════════════════════════════════════════════
+    function createSparkles() {
+      for (var i = 0; i < 20; i++) {
+        var sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        sparkle.style.left = (5 + (i % 5) * 22) + '%';
+        sparkle.style.animationDelay = (i * 0.3) + 's';
+        sparkle.style.animationDuration = (3 + (i % 3)) + 's';
+        sparklesContainer.appendChild(sparkle);
+      }
+    }
+
+    function createGoldStars() {
+      for (var i = 0; i < 8; i++) {
+        var star = document.createElement('div');
+        star.className = 'gold-star';
+        star.textContent = '✦';
+        star.style.left = (10 + (i % 4) * 25) + '%';
+        star.style.top = (15 + (i % 3) * 25) + '%';
+        star.style.animationDelay = (i * 0.5) + 's';
+        starsContainer.appendChild(star);
+      }
+    }
+
+    // ════════════════════════════════════════════
+    // BOTÕES DO CONVITE
+    // ════════════════════════════════════════════
+    btnConfirmar.addEventListener('click', function() {
+      window.open(
+        'https://wa.me/5511989849808?text=Ol%C3%A1!%20Confirmo%20minha%20presen%C3%A7a%20na%20festa%20da%20Gabrielli!%20%F0%9F%8E%89',
+        '_blank'
+      );
+    });
+
+    btnLocal.addEventListener('click', function() {
+      window.open(
+        'https://www.google.com/maps/search/?api=1&query=Estrada+Maria+Cristina+653+Diadema+SP',
+        '_blank'
+      );
+    });
+
+    btnPresentes.addEventListener('click', function() {
+      phasePresentes.classList.remove('hidden');
+      phaseConvite.classList.add('hidden');
+      renderPresentes();
+    });
+
+    btnClosePresentes.addEventListener('click', function() {
+      phasePresentes.classList.add('hidden');
+      phaseConvite.classList.remove('hidden');
+    });
+
+    // ════════════════════════════════════════════
+    // RENDERIZAR LISTA DE PRESENTES
+    // ════════════════════════════════════════════
+    function renderPresentes() {
+      var html = '';
+
+      // Título
+      html += '<div class="presentes-header">';
+      html += '  <h2>Sugestão de Presente</h2>';
+      html += '  <div class="divider"></div>';
+      html += '  <p>Se desejar me presentear, aqui estão algumas sugestões</p>';
+      html += '</div>';
+
+      // Categorias
+      html += '<div class="presentes-categories">';
+      giftCategories.forEach(function(category) {
+        html += '<div class="gift-category">';
+        html += '  <h3>' + category.title + '</h3>';
+        html += '  <div>';
+        category.items.forEach(function(item) {
+          html += '    <button class="gift-item" onclick="openGift(\'' + item.url + '\')">';
+          html += '      <span class="star">✦</span>';
+          html += '      <span class="item-name">' + item.name + '</span>';
+          html += '      <span class="external-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>';
+          html += '    </button>';
+        });
+        html += '  </div>';
+        html += '</div>';
+      });
+      html += '</div>';
+
+      // PIX
+      html += '<div class="pix-section">';
+      html += '  <div class="pix-box">';
+      html += '    <p class="pix-label">Ou se preferir via PIX</p>';
+      html += '    <p class="pix-key">(11) 98984-9808</p>';
+      html += '    <button class="pix-copy-btn" onclick="copyPix()">Copiar PIX</button>';
+      html += '  </div>';
+      html += '</div>';
+
+      presentesContent.innerHTML = html;
+    }
+
+    // ════════════════════════════════════════════
+    // FUNÇÕES GLOBAIS
+    // ════════════════════════════════════════════
+    window.openGift = function(url) {
+      window.open(url, '_blank');
+    };
+
+    window.copyPix = function() {
+      navigator.clipboard.writeText('11989849808').then(function() {
+        pixToast.classList.add('show');
+        setTimeout(function() { pixToast.classList.remove('show'); }, 2000);
+      }).catch(function() {
+        // Fallback
+        var textArea = document.createElement('textarea');
+        textArea.value = '11989849808';
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        pixToast.classList.add('show');
+        setTimeout(function() { pixToast.classList.remove('show'); }, 2000);
+      });
+    };
+  </script>
+</body>
+</html>
